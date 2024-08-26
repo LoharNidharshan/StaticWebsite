@@ -1,0 +1,21 @@
+
+
+Building codeuri: C:\Users\abhin\OneDrive\Desktop\aws stuff\s3 basic\StaticWebsite\src runtime: nodejs18.x metadata: {}
+architecture: x86_64 functions: UploadFunction
+ Running NodejsNpmBuilder:NpmPack
+ Running NodejsNpmBuilder:CopyNpmrcAndLockfile
+ Running NodejsNpmBuilder:CopySource
+ Running NodejsNpmBuilder:CleanUpNpmrc
+ Running NodejsNpmBuilder:LockfileCleanUp
+ Running NodejsNpmBuilder:LockfileCleanUp
+SyncFlow [Lambda Function UploadFunction]: Skipping resource update as the content didn't change
+16/Aug/2024:13:31:01: Finished syncing Lambda Function UploadFunction.
+Syncing Lambda Function UploadFunction...
+Manifest is not changed for (UploadFunction), running incremental build
+Building codeuri: C:\Users\abhin\OneDrive\Desktop\aws stuff\s3 basic\StaticWebsite\src runtime: nodejs18.x metadata: {}
+architecture: x86_64 functions: UploadFunction
+ Running NodejsNpmBuilder:NpmPack
+ Running NodejsNpmBuilder:CopyNpmrcAndLockfile
+ Running NodejsNpmBuilder:CopySource
+ Running NodejsNpmBuilder:CleanUpNpmrc
+ Running NodejsNpmBuilder:LockfileCleanUp

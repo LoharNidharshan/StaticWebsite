@@ -1,0 +1,53 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  StaticWebsiteBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      # BucketName: !Sub "${AWS::StackName}-static-website"  # Ensure this is all lowercase
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: index.html
+      PublicAccessBlockConfiguration:
+        BlockPublicPolicy: false
+        RestrictPublicBuckets: false
+
+  BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref StaticWebsiteBucket
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Sid: PublicReadGetObject
+            Effect: Allow
+            Principal: "*"
+            Action: "s3:GetObject"
+            Resource: !Sub "${StaticWebsiteBucket.Arn}/*"
+
+  UploadFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      Runtime: nodejs18.x 
+      CodeUri: ./src
+      Environment:
+        Variables:
+          BUCKET_NAME: !Ref StaticWebsiteBucket
+      Policies:
+        - S3WritePolicy:
+            BucketName: !Ref StaticWebsiteBucket
+      Events:
+        HelloWorld:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /add
+            Method: post
+Outputs:
+  WebsiteURL:
+    Description: "URL for the static website"
+    Value: !GetAtt StaticWebsiteBucket.WebsiteURL
+
+  UploadFunctionName:
+    Description: "Name of the Lambda function to upload data to S3"
+    Value: !Ref UploadFunction
